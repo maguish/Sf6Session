@@ -13,31 +13,30 @@
     <body>
         {% block body %}
             <h1>Mastermind</h1>
-            <p>Veuillez saisir successivement des combinaisons de 4 chiffres jusqu'à la victoire !</p>
-            <form method="get">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Numéro</th>
-                            <th>Proposition</th>
-                            <th>Bien placé(s)</th>
-                            <th>Mal(s) placé(s)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            {#<td>{{app.session.get('n')}}</td>#}
-                            <td>
-                                <input type="number"  name="saisie" required minlength="4" maxlength="4" size="10"/>
-                            </td>
-                            <td>
-                                <button type="submit">OK</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>Veuillez saisir une proposition s-il-vous-plaît !</p>
-            </form>
+    <p>Veuillez saisir successivement des combinaisons de 4 chiffres jusqu'à la victoire !</p>
+    <form method="get">
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Proposition</th>
+                    <th>Bien placé(s)</th>
+                    <th>Mal(s) placé(s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="number"  name="proposition" required minlength="4" maxlength="4" size="10"/>
+                    </td>
+                    <td>
+                        <button type="submit">OK</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Veuillez saisir une proposition s'il-vous-plaît !</p>
+    </form>
         {% endblock %}
     </body>
 </html>
