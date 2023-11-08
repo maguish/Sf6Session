@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Session PHP!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
         {% endblock %}
@@ -11,6 +11,33 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            <h1>Mastermind</h1>
+            <p>Veuillez saisir successivement des combinaisons de 4 chiffres jusqu'à la victoire !</p>
+            <form method="get">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numéro</th>
+                            <th>Proposition</th>
+                            <th>Bien placé(s)</th>
+                            <th>Mal(s) placé(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {#<td>{{app.session.get('n')}}</td>#}
+                            <td>
+                                <input type="number"  name="saisie" required minlength="4" maxlength="4" size="10"/>
+                            </td>
+                            <td>
+                                <button type="submit">OK</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Veuillez saisir une proposition s-il-vous-plaît !</p>
+            </form>
+        {% endblock %}
     </body>
 </html>
