@@ -15,27 +15,35 @@ class SessionController extends AbstractController
     {
         $session = $request->getSession();
 
-        if(!$session->has('mastermind')){
+        if (!$session->has('mastermind')) {
             $session->set('mastermind', new MasterMind());
-        } else {
-            $jeu = $session->get('mastermind');
-            
-            $proposition = $request->query->get('proposition');
-            $jeu->test($proposition);
-
-            $tabEssaies = $jeu->getEssais();
-            return $this->render('session/accueil.html.twig', [
-                'jeu' => $jeu,
-                'tabEssaies' => $tabEssaies,
-            ]);
-
-            $session->set('mastermind', $jeu);
-
         }
 
-        // Aucun paramètre n'a été fourni, afficher le template de base
-        return $this->render('base.html.twig');
+        $jeu = $session->get('mastermind');
 
+        $codeTrouve = false;
+
+        if ($request->isMethod('GET')) {
+            $proposition = $request->query->get('proposition');
+
+            if ($proposition !== null) {
+                $result = $jeu->test($proposition);
+
+                if ($result['bon'] == $jeu->getTaille()) {
+                    $codeTrouve = true;
+                    // Réinitialiser le code pour une nouvelle partie
+                    $session->set('mastermind', new MasterMind());
+                } else {
+                    $tabEssaies = $jeu->getEssais();
+                }
+            }
+        }
+
+        return $this->render('session/accueil.html.twig', [
+            'jeu' => $jeu,
+            'tabEssaies' => $jeu->getEssais(),
+            'codeTrouve' => $codeTrouve,
+        ]);
     }
 
 }

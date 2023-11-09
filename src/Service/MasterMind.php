@@ -17,11 +17,16 @@
         protected $tabEssais = array();
 
         //constructeur par défaut : génération d'un code aléatoire de taille
-        public function __construct($taille = 4){
+        /*public function __construct($taille = 4){
             for($i=0; $i < $taille; $i++){
                 $c=rand(0,9);		//un chiffre aléatoire
                 $this->code.="$c";  // on initialise le code avec ce chiffre aléatoire
             }
+        }*/
+
+        //constructeur par défaut : si code = 1234
+        public function __construct($taille = 4){
+            $this->code.="1234";
         }
 
         //pour vérifier si le code saisi par l'utilisateur est valide
@@ -36,23 +41,13 @@
             return true;
         }
 
-        //pour vérifier si on a fini le test
-        public function estFini(){
-            foreach($this->$tabEssais as $essai => $res){
-                if($res['bon'] == 4){
-                    return true;
-                }
-            }
-            return false;
-        }
-
         //tester maintenant le code
         public function test($essai){
             if(!$this->estValide($essai)){
                 //si le code saisi n'est pas valide
                 return false;
             } else {
-                //on recupère le code vu que celui-ci est généré aleatoirement
+                //on recupère le code à trouvé vu que celui-ci est généré aleatoirement
                 $cpCode = $this->code;
                 //sinon, on récupère la valeur à tester
                 $cpEssai = $essai;	
@@ -74,6 +69,13 @@
 
                 //boucle pour trouver les chiffres mal placés
                 for($i=0; $i < strlen($cpEssai); $i++){
+                    if($cpCode[$i] != $cpEssai[$i]){
+                        $cpCode[$i] = 'N'; // afin de ne plus le prendre en compte
+	                    $cpEssai[$i] = 'N'; // afin de ne plus le prendre en compte
+                        $res['mal']++;
+                    }
+                }
+                /*for($i=0; $i < strlen($cpEssai); $i++){
                     if($cpEssai[$i] != 'Y'){
                         //on recupère la position du chiffre mal placé
                         //strpos(A,'b') cherche la position de la première occurrence de "b" dans une chaîne A
@@ -83,7 +85,7 @@
                             $cpCode[$pos] = 'Y';
                         }
                     }
-                }
+                }*/
 
                 //on enrégistre les données de l'essai dans le tableau tabEssais
                 $this->tabEssais[$essai] = $res;

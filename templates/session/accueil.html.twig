@@ -32,6 +32,11 @@
                         <button type="submit">OK</button>
                     </td>
                 </tr>
+                <tr>
+                    {% if codeTrouve is defined and codeTrouve == true %}
+                        <td colspan="4"><p>Bravo! Vous avez trouvé le bon code.</p></td>
+                    {% endif %}
+                </tr>
             </tbody>
         </table>
         <p>Veuillez saisir une proposition s'il-vous-plaît !</p>
